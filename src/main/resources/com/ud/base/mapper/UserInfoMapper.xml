@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ud.base.mapper.UserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ud.base.entity.UserInfo" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="bit_state" property="bitState" jdbcType="BIGINT" />
+    <result column="id_number" property="idNumber" jdbcType="VARCHAR" />
+    <result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    
+    <!-- 配置关联关系 -->
+    <association property="educationBackground" column="education_background_id" javaType="com.ud.base.entity.SystemDictionaryItem"
+    	select="com.ud.base.mapper.SystemDictionaryItemMapper.selectByPrimaryKey">
+    </association>
+    
+    <association property="houseCondition" column="house_condition_id" javaType="com.ud.base.entity.SystemDictionaryItem"
+    	select="com.ud.base.mapper.SystemDictionaryItemMapper.selectByPrimaryKey">
+    </association>
+    
+    <association property="incomeGrade" column="income_grade_id" javaType="com.ud.base.entity.SystemDictionaryItem"
+    	select="com.ud.base.mapper.SystemDictionaryItemMapper.selectByPrimaryKey">
+    </association>
+    
+    <association property="kidDetail" column="kid_detail_id" javaType="com.ud.base.entity.SystemDictionaryItem"
+    	select="com.ud.base.mapper.SystemDictionaryItemMapper.selectByPrimaryKey">
+    </association>
+    <association property="marriage" column="marriage_id" javaType="com.ud.base.entity.SystemDictionaryItem"
+    	select="com.ud.base.mapper.SystemDictionaryItemMapper.selectByPrimaryKey">
+    </association>
+  </resultMap>
+  
+  <sql id="base_column">
+  		id, bit_state, id_number, phone_number, real_name, user_id, version, education_background_id, 
+   		 house_condition_id, income_grade_id, kid_detail_id, marriage_id
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" >
+    select <include refid="base_column"/>
+    from user_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <select id="selectByUserId" resultMap="BaseResultMap" >
+    select <include refid="base_column"/>
+    from user_info
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select <include refid="base_column"/>
+    from user_info
+  </select>
+  
+</mapper>

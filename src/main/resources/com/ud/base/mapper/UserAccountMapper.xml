@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ud.base.mapper.UserAccountMapper" >
+  <resultMap id="BaseResultMap" type="com.ud.base.entity.UserAccount" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="freezed_amount" property="freezedAmount" jdbcType="DECIMAL" />
+    <result column="remain_borrow_amount" property="remainBorrowAmount" jdbcType="DECIMAL" />
+    <result column="trade_password" property="tradePassword" jdbcType="VARCHAR" />
+    <result column="un_received_interest" property="unReceivedInterest" jdbcType="DECIMAL" />
+    <result column="un_received_principal" property="unReceivedPrincipal" jdbcType="DECIMAL" />
+    <result column="un_return_amount" property="unReturnAmount" jdbcType="DECIMAL" />
+    <result column="usable_amount" property="usableAmount" jdbcType="DECIMAL" />
+    <result column="version" property="version" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+  </resultMap>
+  
+ <sql id="base_column">
+ 	id, freezed_amount, remain_borrow_amount, trade_password, un_received_interest, 
+    un_received_principal, un_return_amount, usable_amount, version, user_id
+ </sql>
+ 
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" >
+    select <include refid="base_column"/>
+    from user_account
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select <include refid="base_column"/>
+    from user_account
+  </select>
+  
+  <select id="selectByUserId" resultMap="BaseResultMap">
+  	select <include refid="base_column"/>
+  	from user_account
+  	where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  
+  
+  
+</mapper>
